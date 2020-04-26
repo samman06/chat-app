@@ -17,6 +17,7 @@ io.on("connection", (socket) => {
     socket.emit("newMessage", generateMessage("samman", "welcome to our chat app"))
     socket.broadcast.emit("newMessage", generateMessage("samman", "new user joined us"))
     socket.on("createMessage", ({ from, text }) => {
+        console.log(from, text)
         io.emit("newMessage", generateMessage(from, text))
     })
 })
