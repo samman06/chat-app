@@ -9,6 +9,13 @@
 
 <body>
     <p>welcome to my chat app</p>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io();
+        socket.on("connect", () => {
+            console.log("connected to server")
+        })
+    </script>
 </body>
 
 </html>
