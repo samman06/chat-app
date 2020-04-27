@@ -13,8 +13,10 @@ socket.on("newMessage", ({ from, text }) => {
 
 jQuery("#message-form").on("submit", (e) => {
     e.preventDefault();
+    let messageTextBox = jQuery('[name=message]');
     socket.emit('createMessage', {
         from: "user",
-        text: jQuery('[name=message]').val()
+        text: messageTextBox.val(),
     })
+    messageTextBox.val("");
 })

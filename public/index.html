@@ -8,15 +8,22 @@
     <title>Chat App</title>
 </head>
 
-<body>
-    <p>welcome to my chat app</p>
-    <ol id=messages>
+<body class="chat">
+    <div class="chat__sidebar">
+        <h3>People</h3>
+        <div id="users">
 
-    </ol>
-    <form action="" id="message-form">
-        <input type="text" name="message" placeholder="write your message">
-        <button type="submit">send</button>
-    </form>
+        </div>
+    </div>
+    <div class="chat__main">
+        <ol id="messages" class="chat__messages"> </ol>
+        <div class="chat__footer">
+            <form action="" id="message-form">
+                <input type="text" name="message" placeholder="write your message" autofocus autocomplete="off">
+                <button type="submit">send</button>
+            </form>
+        </div>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/libs/jquery-3.1.0.min.js"></script>
     <script src="js/index.js"></script>
