@@ -1,7 +1,8 @@
+let moment = require("moment")
 let generateMessage = (from, text) => ({
     from,
     text,
-    createdAt: new Date().getTime()
+    createdAt: moment().valueOf()
 })
 
 module.exports = { generateMessage }
