@@ -31,7 +31,7 @@ socket.on("joinNewUser", (users) => {
     jQuery("#users").html(ol)
 });
 socket.on("newMessage", ({ from, text, createdAt }) => {
-    createdAt = moment(createdAt).format('h:mm a')
+    createdAt = moment(createdAt).format('h:mm a');
     let messageTemplet = jQuery("#message-template").html();
     let message = Mustache.render(messageTemplet, {
         from, text,
@@ -46,7 +46,6 @@ jQuery("#message-form").on("submit", (e) => {
     let messageTextBox = jQuery('[name=message]');
     if (messageTextBox.val()) {
         socket.emit('createMessage', {
-            from: "user",
             text: messageTextBox.val(),
         })
     }

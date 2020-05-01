@@ -4,4 +4,4 @@ let generateMessage = (from, text) => ({
     createdAt: moment().valueOf()
 });
 
-module.exports = {generateMessage};
+module.exports = generateMessage;
