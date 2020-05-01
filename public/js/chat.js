@@ -14,7 +14,16 @@ let scrollToBottom = () => {
         messages.scrollTop(scrollHeight)
     }
 }
-socket.on("connect", () => {})
+socket.on("connect", () => {
+    let userData = jQuery.deparam(window.location.search)
+    socket.emit("join",userData,(err)=>{
+        if(err){
+            window.alert(err);
+            window.location.href="/";
+        }
+
+    })
+});
 socket.on("newMessage", ({ from, text, createdAt }) => {
     createdAt = moment(createdAt).format('h:mm a')
     let messageTemplet = jQuery("#message-template").html();
