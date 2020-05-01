@@ -13,28 +13,33 @@ let scrollToBottom = () => {
     if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
         messages.scrollTop(scrollHeight)
     }
-}
+};
 socket.on("connect", () => {
-    let userData = jQuery.deparam(window.location.search)
+    let userData = jQuery.deparam(window.location.search);
     socket.emit("join",userData,(err)=>{
         if(err){
             window.alert(err);
             window.location.href="/";
         }
-
     })
+});
+socket.on("joinNewUser", (users) => {
+    let ol = jQuery("<ol></ol>");
+    users.map(user=>{
+        ol.append(jQuery("<li></li>").text(user))
+    });
+    jQuery("#users").html(ol)
 });
 socket.on("newMessage", ({ from, text, createdAt }) => {
     createdAt = moment(createdAt).format('h:mm a')
     let messageTemplet = jQuery("#message-template").html();
     let message = Mustache.render(messageTemplet, {
-        from,
-        text,
+        from, text,
         createdAt
-    })
+    });
     jQuery("#messages").append(message);
     scrollToBottom()
-})
+});
 
 jQuery("#message-form").on("submit", (e) => {
     e.preventDefault();

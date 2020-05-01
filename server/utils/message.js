@@ -1,8 +1,7 @@
-let moment = require("moment")
+let moment = require("moment");
 let generateMessage = (from, text) => ({
-    from,
-    text,
+    from, text,
     createdAt: moment().valueOf()
-})
+});
 
-module.exports = { generateMessage }
+module.exports = {generateMessage};
