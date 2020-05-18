@@ -10,8 +10,7 @@ class Users {
 
     removeUser(userId) {
         let user = this.getUser(userId);
-        if (user)
-            this.users = this.users.filter(({id}) => id !== userId);
+        if (user) this.users = this.users.filter(({id}) => id !== userId);
         return user;
     };
 
@@ -21,7 +20,7 @@ class Users {
 
     getUserList(userRoom) {
         let users = this.users.filter(({room}) => room === userRoom);
-        return users.map((user) => user.name);
+        return users.map(({name}) => name);
     }
 }
 

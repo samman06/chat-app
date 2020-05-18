@@ -1,25 +1,26 @@
 {
-    "name": "chat-app",
-    "version": "1.0.0",
-    "description": "chat application",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
-        "test": "test"
-    },
-    "engines": {
-        "node": "8.17.0"
-    },
-    "author": "samman",
-    "license": "ISC",
-    "dependencies": {
-        "express": "^4.14.0",
-        "moment": "^2.15.1",
-        "socket.io": "^1.4.8"
-    },
-    "devDependencies": {
-        "expect": "^1.20.2",
-        "mocha": "^3.0.2",
-        "nodemon": "^1.10.2"
-    }
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "chat application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "test"
+  },
+  "engines": {
+    "node": "8.17.0"
+  },
+  "author": "samman",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "moment": "^2.15.1",
+    "mongoose": "^5.9.14",
+    "socket.io": "^1.4.8"
+  },
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "mocha": "^3.0.2",
+    "nodemon": "^1.10.2"
+  }
 }

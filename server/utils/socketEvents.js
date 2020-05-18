@@ -17,7 +17,7 @@ const socketEvents = (io, socket) => {
         socket.broadcast.to(room).emit("newMessage", generateMessage("Admin", `${name} Has Joined The Room`));
         callback()
     });
-    socket.on("createMessage", ({text}) => {
+    socket.on("createMessage", (text) => {
         let {name, room} = users.getUser(socket.id);
         io.to(room).emit("newMessage", generateMessage(name, text))
     });
