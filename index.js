@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const passport = require("passport");
 let app = express();
 const path = require("path");
 const http = require("http");
@@ -26,6 +28,11 @@ const server = http.createServer(app);
 let io = sockitIO(server);
 io.on("connection", (socket) => socketEvents(io, socket));
 
+
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+app.set("view engine","ejs");
+app.set("views","./views");
 app.use("/", users);
 
 const PORT = process.env.PORT || 3000;
