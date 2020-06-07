@@ -20,21 +20,20 @@ router.post("/login", async (req, res) => {
     const {email, password} = req.body;
     const {errors, isValid} = validation.validateLoginInputs(req.body);
     if (!isValid) return res.render("users/login", {errors});
-    try{
+    try {
         const user = await User.findOne({email: email});
-        if (!user) return res.render("users/login",{errors: {email: 'email not found'}});
+        if (!user) return res.render("users/login", {errors: {email: 'email not found'}});
         const isMached = await bcrypt.compare(password, user.password);
         if (isMached) {
-            const {_id, firstName, lastName, email, photo, isAdmin} = user;
-            const payload = {_id, firstName, lastName, email, photo, isAdmin};
+            const {_id, name, email} = user;
+            const payload = {_id, name, email};
             let token = await jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600});
-            req.session.user = {_id, firstName, lastName};
-            req.session.token = "Bearer " + token;
-            if (token) return res.redirect("/");
+            req.session.token = token;
+            if (token) return res.redirect("/home");
         } else {
-            return res.render("users/login",{errors: {password: 'password incorrect'}});
+            return res.render("users/login", {errors: {password: 'password incorrect'}});
         }
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 });
