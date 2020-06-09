@@ -12,19 +12,23 @@
 <div class="chat__sidebar">
     <h3 id="name" ><%=user.name%></h3>
     <div id="users">
-        <% users.forEach(d =>{
+        <% users.forEach(user =>{
         %>
-            <li id=<%=d._id%> onClick="selectUser(this.id);" ><%= d.name %></li>
+            <li id=<%=user._id%> class="userName"  onClick="selectUser(event);" ><%= user.name %></li>
         <% }) %>
 
     </div>
 </div>
 <div class="chat__main">
+    <div>
+        <h3 class="currentFriend"><%=users[0].name%></h3>
+    </div>
     <ol id="messages" class="chat__messages"></ol>
     <div class="chat__footer" id=<%=users[0]._id%>>
-        <form action="" id="message-form">
+        <form action="/message" method="post" id="message-form">
             <input type="text" name="message" id="message" placeholder="write your message" autofocus autocomplete="off">
-            <input type="text" id="userId" name="id" hidden value=<%=user._id%>>
+            <input type="text" id="userId" name="from" hidden value=<%=user._id%>>
+            <input type="text" id="friendId" name="to" hidden value=<%=users[0]._id%>>
             <button type="submit">send</button>
         </form>
     </div>

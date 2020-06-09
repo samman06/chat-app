@@ -1,6 +1,6 @@
 let moment = require("moment");
-let generateMessage = (from, text) => ({
-    from, text,
+let generateMessage = (from,UId, text) => ({
+    from, text,UId,
     createdAt: moment().valueOf()
 });
 

@@ -13,6 +13,7 @@ const keys = require('./config/keys');
 //import routes
 const users = require("./routes/users");
 const home = require("./routes/home");
+const message = require("./routes/message");
 const publicPath = path.join(__dirname, '/public');
 app.use(express.static(publicPath));
 
@@ -38,6 +39,7 @@ app.set("views", "./views");
 
 app.use("/", users);
 app.use("/home", home);
+app.use("/message", message);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {

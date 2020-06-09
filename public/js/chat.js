@@ -1,7 +1,10 @@
 let socket = io();
 let name = document.getElementById("name").innerText;
 let userId = document.getElementById("userId").value;
-let friendId = document.getElementsByClassName("chat__footer")[0].id;
+let currentFriend = document.getElementsByClassName("currentFriend")[0];
+let friend = document.getElementsByClassName("userName")[0];
+let friendId = friend.id;
+friend.classList.add("current");
 //auto scroll to bottom in chat box
 let scrollToBottom = () => {
     let messages = jQuery("#messages");
@@ -31,23 +34,37 @@ socket.on("connect", () => {
 //     jQuery("#users").html(ol)
 // });
 //when new message come from server
-socket.on("newMessage", ({from, text, createdAt}) => {
-    createdAt = moment(createdAt).format('h:mm a');
-    let messageTemplet = jQuery("#message-template").html();
-    let message = Mustache.render(messageTemplet, {
-        from, text, createdAt
-    });
-    jQuery("#messages").append(message);
-    scrollToBottom()
+socket.on("newMessage", ({from, text,UId, createdAt}) => {
+    if(UId===friendId||UId===userId){
+        createdAt = moment(createdAt).format('h:mm a');
+        let messageTemplet = jQuery("#message-template").html();
+        let message = Mustache.render(messageTemplet, {
+            from, text, createdAt
+        });
+        jQuery("#messages").append(message);
+        scrollToBottom()
+    }
+        //TODO message from server U need notifications
+
 });
 //when send a new message
 jQuery("#message-form").on("submit", (e) => {
     e.preventDefault();
     let message = document.getElementById("message");
     if (message.value) socket.emit('createMessage', {message:message.value,userId,friendId});
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/message", true);
+    xhttp.setRequestHeader("Content-Type", 'application/x-www-form-urlencoded');
+    let data = `message=${message.value}&from=${userId}&to=${friendId}`;
     message.value = "";
+    xhttp.send(data);
+
 });
 
-function selectUser(id) {
-    friendId = id
+function selectUser(event) {
+    friendId = event.target.id;
+    document.getElementById("friendId").value = friendId;
+    document.getElementsByClassName("current")[0].classList.remove("current");
+    event.target.classList.add("current");
+    currentFriend.innerText = event.target.innerText;
 }

@@ -190,3 +190,8 @@ button:disabled {
         margin-right: 0
     }
 }
+
+.current{
+    color: green;
+    font-weight: bold;
+}
