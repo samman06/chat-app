@@ -23,7 +23,20 @@
     <div>
         <h3 class="currentFriend"><%=users[0].name%></h3>
     </div>
-    <ol id="messages" class="chat__messages"></ol>
+    <ol id="messages" class="chat__messages">
+        <% messages.forEach(message =>{
+        %>
+        <li class="message">
+            <div class="message__title">
+                <h4><%= message.from.name %></h4>
+                <span>5:47 am</span>
+            </div>
+            <div class="message__body">
+                <p><%= message.message %></p>
+            </div>
+        </li>
+        <% }) %>
+    </ol>
     <div class="chat__footer" id=<%=users[0]._id%>>
         <form action="/message" method="post" id="message-form">
             <input type="text" name="message" id="message" placeholder="write your message" autofocus autocomplete="off">

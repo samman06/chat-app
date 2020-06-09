@@ -5,7 +5,6 @@ const socketEvents = (io, socket) => {
     socket.on("join", ({name, userId}) => {
         socket.join(userId);
         io.to(userId).emit("joinNewUser", {name, userId});
-        socket.emit("newMessage", generateMessage("Admin", "welcome to sour chat app"));
         socket.broadcast.to(userId).emit("newMessage", generateMessage("Admin", `${name} Has Joined The Room`));
         // callback()
     });
