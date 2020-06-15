@@ -3,19 +3,21 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const validation = require("../validation/inputsValidation");
-const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
 
 // @route   GET /
 // @desc    landing page
 // @access  public
 router.get("", async (req, res) => {
+    const { name, email} = req.session;
+    if(email || name) return res.redirect("/home");
     res.render("layout/landing", {errors: {}});
 });
 // @route   GET login
 // @desc    login users
 // @access  public
 router.get("/login", async (req, res) => {
+    const { name, email} = req.session;
+    if(email || name) return res.redirect("/home");
     res.render("users/login", {errors: {}});
 });
 
@@ -32,10 +34,12 @@ router.post("/login", async (req, res) => {
         const isMached = await bcrypt.compare(password, user.password);
         if (isMached) {
             const {_id, name, email} = user;
-            const payload = {_id, name, email};
-            let token = await jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600});
-            req.session.token = token;
-            if (token) return res.redirect("/home");
+            // const payload = {_id, name, email};
+            // let token = await jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600});
+            req.session.name = name;
+            req.session.email = email;
+            req.session._id = _id;
+            return res.redirect("/home");
         } else {
             return res.render("users/login", {errors: {password: 'password incorrect'}});
         }
@@ -48,6 +52,8 @@ router.post("/login", async (req, res) => {
 // @desc    register users
 // @access  public
 router.get("/registration", async (req, res) => {
+    const { name, email} = req.session;
+    if(email || name) return res.redirect("/home");
     res.render("users/registration", {errors: {}})
 });
 

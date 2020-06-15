@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const session = require('express-session');
-const cookieParser = require('cookie-parser');
 let app = express();
 const path = require("path");
 const http = require("http");
@@ -29,7 +28,6 @@ let io = sockitIO(server);
 io.on("connection", (socket) => socketEvents(io, socket));
 
 app.use(session({secret: keys.secretOrKey}));
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 // app.use(bodyParser.json());
 app.set("view engine", "ejs");

@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
 const Message = require("../models/Message");
 
 // @route   GET message
@@ -9,10 +7,10 @@ const Message = require("../models/Message");
 // @access  private
 router.get("/", async (req, res) => {
     const {to} = req.query;
-    const { token} = req.session;
+    const { _id, name, email} = req.session;
+    if(!email || ! name) return res.redirect("/login");
     try {
-        let user = jwt.verify(token,keys.secretOrKey);
-        const messages = await Message.find({$or:[{from:user._id,to:to},{to:user._id,from:to}]})
+        const messages = await Message.find({$or:[{from:_id,to:to},{to:_id,from:to}]})
             .populate('from', ['name']);
         res.json({messages});
     } catch (e) {
