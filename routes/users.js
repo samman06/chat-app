@@ -6,6 +6,12 @@ const validation = require("../validation/inputsValidation");
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
+// @route   GET /
+// @desc    landing page
+// @access  public
+router.get("", async (req, res) => {
+    res.render("layout/landing", {errors: {}});
+});
 // @route   GET login
 // @desc    login users
 // @access  public

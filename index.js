@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const passport = require("passport");
 let app = express();
 const path = require("path");
 const http = require("http");
